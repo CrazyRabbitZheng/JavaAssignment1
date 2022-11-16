@@ -6,9 +6,6 @@ import java.util.Scanner;
 /**
  * Tester
  * @author - Stu.ID: 20085058
- */
-
-/**
  * create a AccountTester class
  */
 public class AccountTester {
