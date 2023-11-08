@@ -1,0 +1,28 @@
+package org.example;
+
+import java.text.Format;
+import java.text.NumberFormat;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        final int MONTH_IN_A_YEAR = 12;
+        final int PERCENTAGE = 100;//These two constant variables are to avoid magic numbers in the code.
+        System.out.println("Now you can calculate the mortgage.");
+        Scanner input = new Scanner(System.in);
+        System.out.print("What is your principal?   ");
+        double principal = input.nextDouble();
+        System.out.print("What is the annual interest rate?   ");
+        float annualInterestRate = input.nextFloat();
+        System.out.print("How many years you want to have this mortgage?  ");
+        int years = input.nextInt();
+        double mortgage = principal * annualInterestRate/ PERCENTAGE / MONTH_IN_A_YEAR * Math.pow((1 + annualInterestRate/ PERCENTAGE / MONTH_IN_A_YEAR), (years * MONTH_IN_A_YEAR)) / (Math.pow((1 + annualInterestRate / PERCENTAGE  / MONTH_IN_A_YEAR),(years * MONTH_IN_A_YEAR)) - 1);
+
+        String theMortgage = NumberFormat.getCurrencyInstance().format(mortgage);
+
+        System.out.println("Your mortgage is " +  theMortgage);
+
+    }
+        }
+
