@@ -1,0 +1,29 @@
+package org.example;
+
+import java.util.Scanner;
+
+public class Main {
+
+public static void main(String[]args){
+
+
+    Scanner input = new Scanner(System.in);
+    System.out.print("enter your GPA: ");
+
+    String gpa = input.nextLine();//Here gpa is a string
+
+
+   switch (gpa){
+       case "A"://Here the gpa value should be a String. if you use single quote , it automatically think it's a char. A char will raise exception.
+// so change to "" and the code can run.
+           System.out.println("you are A");
+           break;
+       case "B":
+           System.out.println("B");
+           break;
+       default:
+           System.out.println("F");
+   }
+
+}
+}
