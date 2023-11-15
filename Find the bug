@@ -16,7 +16,7 @@ public static void main(String[]args){
     while (character != "q"){//When you enter "q", the code never terminatesa. Why? Answer: the above line, character is a String, a refernce type. when compare these two. It compares their addresses.
 //.....................................................................................................So these two are always not equal; the while condition is always true. Never terminates!
 //...............................................................................to solve it change the while condition to !character.equals("q")
-        character = input.next();
+        character = input.next().toLowercase();
         System.out.println("you entered "+ character);
         System.out.println("continue");
 
