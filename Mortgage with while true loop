@@ -1,0 +1,62 @@
+package org.example;
+
+import java.text.NumberFormat;
+
+import java.util.Scanner;
+
+public class Main {
+
+public static void main(String[]args){
+    Scanner input = new Scanner(System.in);
+    double principal;
+    double annualInterestRate;
+    int years;
+    while (true) {
+        System.out.print("Enter your principal: 1K to 1M :  ");
+        principal = input.nextDouble();
+        if (principal < 1000 || principal > 1000_000) {
+            continue;
+        }
+        String yourPrincipal = NumberFormat.getCurrencyInstance().format(principal);
+        System.out.println("Your principal is " + yourPrincipal);
+        break;
+    }
+
+    while(true) {
+
+        System.out.print("Enter the annual interest rate:  ");
+        annualInterestRate = input.nextDouble();
+        if (annualInterestRate < 0 || annualInterestRate > 30) {
+            continue;
+        }
+        String yourAnnualInterstRate = NumberFormat.getPercentInstance().format(annualInterestRate);
+        System.out.println("Your annual interest rate is " + yourAnnualInterstRate);
+        break;
+    }
+    while(true){
+
+        System.out.print("Enter how many years you want to pay the mortgage:  ");
+         years = input.nextInt() ;
+        if(years < 1 || years > 30){
+            continue;
+        }
+        System.out.println("Your payment years are " + years
+        );
+
+        break;
+
+    }
+
+        double monthlyRate = annualInterestRate / 100/  12;
+        System.out.println("your monthly rate is " + monthlyRate);
+        int totalMonth = years * 12;
+        System.out.println("There are these months : " + totalMonth);
+
+        double mortgage = principal * monthlyRate * Math.pow((1 + monthlyRate), totalMonth) / (Math.pow((1 + monthlyRate), totalMonth) - 1);
+        String yourMortgage = NumberFormat.getCurrencyInstance().format(mortgage);
+        System.out.println("your mortgage is " + yourMortgage);
+
+}
+
+
+
