@@ -1,0 +1,78 @@
+package org.example;
+
+import java.text.NumberFormat;
+
+import java.util.Scanner;
+
+public class Main {
+
+    final static byte PERCENTAGE = 100;
+    final static byte MONTHINAYEAR = 12;
+    public static void main(String[] args) {
+        //Try to keep the main method 5-10 lines
+        double principal = readNumber("Principal : ", 1000, 1_000_000);
+        double annualInterestRate = readNumber("annual interest:  ", 1, 30);
+        double years =  readNumber("years of payment:  ", 1, 30 );
+
+        printMortgage(principal, annualInterestRate, years);// this method is extracted by IntelliJ. In intelliJ, select code lines, right click, hit refactor, then extract method
+        printPaymentSchedule(principal, annualInterestRate, years);// this method is extracted by IntelliJ.
+
+    }
+
+    private static void printMortgage(double principal, double annualInterestRate, double years) {
+        double mortgage = calculateMortgage(principal, annualInterestRate, years);
+        System.out.println();
+        System.out.println("MORTGAGE");
+        System.out.println("--------");
+        String yourMortgage = NumberFormat.getCurrencyInstance().format(mortgage);
+        System.out.println("Monthly payment: " + yourMortgage);
+    }
+
+    private static void printPaymentSchedule(double principal, double annualInterestRate, double years) {
+        System.out.println();
+        System.out.println("PAYMENT SCHEDULE");
+        System.out.println("----------------");
+        for (int i = 0; i <= years * MONTHINAYEAR; i++) {
+            double balance = calculateBalance(principal, annualInterestRate, years,i);
+            System.out.println(NumberFormat.getCurrencyInstance().format(balance));
+        }
+    }
+
+    public static double readNumber(String prompt, double min, double max){
+        Scanner input = new Scanner(System.in);
+        double value;
+        while (true) {
+            System.out.print(prompt);
+            value = input.nextDouble();
+            if (value >= min && value <= max) {
+               break;
+            }
+            System.out.println("Enter your " + prompt + " between " + min + " and " + max);
+        }
+        return value;
+    }
+
+    public static double calculateBalance(
+            double principal,
+            double annualInterestRate,
+            double years,
+            double numberOfPaymentsMade
+    ){
+        double monthlyRate = annualInterestRate / PERCENTAGE / MONTHINAYEAR;
+        short totalMonth = (short)(years * MONTHINAYEAR);
+        double balance = principal * (Math.pow(1 + monthlyRate,totalMonth) - Math.pow(1 + monthlyRate,numberOfPaymentsMade))
+                 / (Math.pow(1 + monthlyRate, totalMonth) - 1);
+
+        return balance;
+    }
+    public static double calculateMortgage(
+            double principal,
+            double annualInterestRate,
+            double years){
+
+        double monthlyRate = annualInterestRate / PERCENTAGE / MONTHINAYEAR;
+        short totalMonth = (short)(years * MONTHINAYEAR);
+        double mortgage = principal * monthlyRate * Math.pow((1 + monthlyRate), totalMonth) / (Math.pow((1 + monthlyRate), totalMonth) - 1);
+        return mortgage;
+    }
+}
